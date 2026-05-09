@@ -1,0 +1,71 @@
+{
+  "Programming Languages": [
+    "Python", "Java", "JavaScript", "TypeScript", "C++", "C", "C#", "Go",
+    "Rust", "Ruby", "PHP", "Swift", "Kotlin", "Scala", "R", "MATLAB",
+    "Perl", "Haskell", "Dart", "Lua", "Julia", "Bash", "Shell Scripting"
+  ],
+  "Machine Learning & AI": [
+    "Machine Learning", "Deep Learning", "Natural Language Processing", "NLP",
+    "Computer Vision", "Generative AI", "Large Language Models", "LLM",
+    "Retrieval-Augmented Generation", "RAG", "Transfer Learning",
+    "Reinforcement Learning", "Supervised Learning", "Unsupervised Learning",
+    "Semi-Supervised Learning", "Neural Networks", "Convolutional Neural Networks",
+    "CNN", "Recurrent Neural Networks", "RNN", "Transformers", "GANs",
+    "Generative Adversarial Networks", "Autoencoders", "Attention Mechanisms",
+    "Diffusion Models", "Prompt Engineering", "Fine-tuning", "Model Deployment",
+    "MLOps", "Feature Engineering", "Hyperparameter Tuning", "Model Evaluation",
+    "A/B Testing", "Statistical Modeling", "Predictive Modeling",
+    "Time Series Analysis", "Anomaly Detection", "Ensemble Methods",
+    "Random Forest", "XGBoost", "Gradient Boosting", "Support Vector Machines",
+    "SVM", "K-Means Clustering", "Principal Component Analysis", "PCA",
+    "Dimensionality Reduction", "Recommendation Systems"
+  ],
+  "Frameworks & Libraries": [
+    "TensorFlow", "PyTorch", "Keras", "scikit-learn", "spaCy", "NLTK",
+    "Hugging Face", "LangChain", "LlamaIndex", "OpenAI API", "FastAI",
+    "XGBoost", "LightGBM", "CatBoost", "OpenCV", "Pandas", "NumPy",
+    "SciPy", "Matplotlib", "Seaborn", "Plotly", "Streamlit", "Flask",
+    "FastAPI", "Django", "React", "Next.js", "Node.js", "Express.js",
+    "Spring Boot", "PySpark", "Apache Spark", "Apache Kafka", "Ray"
+  ],
+  "Cloud & DevOps": [
+    "AWS", "Amazon Web Services", "Azure", "Google Cloud Platform", "GCP",
+    "Docker", "Kubernetes", "Terraform", "CI/CD", "Jenkins", "GitHub Actions",
+    "GitLab CI", "Serverless", "Lambda", "S3", "EC2", "SageMaker",
+    "Cloud Functions", "BigQuery", "Redshift", "Snowflake", "Data Warehousing",
+    "Linux", "Unix", "Shell Scripting", "Microservices", "REST API",
+    "GraphQL", "gRPC", "Message Queues", "Redis", "Nginx"
+  ],
+  "Databases": [
+    "SQL", "PostgreSQL", "MySQL", "SQLite", "MongoDB", "DynamoDB",
+    "Cassandra", "Elasticsearch", "Neo4j", "Graph Databases",
+    "Vector Databases", "Pinecone", "ChromaDB", "Weaviate", "Milvus",
+    "FAISS", "Redis", "Database Design", "Query Optimization"
+  ],
+  "Data Science & Analytics": [
+    "Data Analysis", "Data Visualization", "Data Cleaning", "ETL",
+    "Data Pipelines", "Business Intelligence", "Tableau", "Power BI",
+    "Excel", "Statistical Analysis", "Hypothesis Testing", "Experimental Design",
+    "Data Mining", "Web Scraping", "Beautiful Soup", "Scrapy", "Selenium"
+  ],
+  "Tools & Platforms": [
+    "Git", "GitHub", "GitLab", "Bitbucket", "Jupyter", "Google Colab",
+    "VS Code", "PyCharm", "Postman", "Swagger", "Jira", "Confluence",
+    "Notion", "Slack", "MLflow", "Weights & Biases", "DVC", "Airflow",
+    "Prefect", "dbt", "Metabase", "Grafana", "Prometheus"
+  ],
+  "Soft Skills": [
+    "Communication", "Team Leadership", "Project Management", "Agile",
+    "Scrum", "Kanban", "Problem Solving", "Critical Thinking",
+    "Stakeholder Management", "Technical Writing", "Documentation",
+    "Mentoring", "Cross-functional Collaboration", "Time Management",
+    "Public Speaking", "Presentation Skills", "Client Relationship Management"
+  ],
+  "Certifications": [
+    "AWS Certified", "Azure Certified", "GCP Certified",
+    "TensorFlow Developer Certificate", "Certified Kubernetes Administrator",
+    "CKA", "AWS Solutions Architect", "AWS Machine Learning Specialty",
+    "Google Professional Data Engineer", "Google Professional ML Engineer",
+    "Microsoft Azure AI Engineer", "Certified Scrum Master", "PMP"
+  ]
+}
