@@ -1,9 +1,7 @@
 # Resume Analyzer AI
-
 An intelligent resume screening tool that parses PDFs, extracts key skills and experience using NLP, and ranks candidates against job descriptions with a composite match score.
 
 ## Features
-
 - **PDF Parsing** — Extracts text from multi-page resume PDFs using `pdfplumber`
 - **Skill Extraction** — 200+ skill taxonomy with `spaCy` PhraseMatcher for fast, accurate skill detection
 - **Multi-Strategy Scoring** — Composite match % combining:
@@ -14,7 +12,32 @@ An intelligent resume screening tool that parses PDFs, extracts key skills and e
 - **Downloadable Reports** — Individual PDF reports per candidate + bulk CSV export
 - **Interactive UI** — Built with Streamlit, featuring leaderboard, charts, and expandable details
 
-## Installation
+---
+
+## 🐳 Docker (Easiest Way — No Setup Needed!)
+
+> No Python, no venv, no pip install — just Docker!
+
+```bash
+# Clone the repo
+git clone https://github.com/httpsankuu/resume-analyzer-ai.git
+cd resume-analyzer-ai
+
+# Build the Docker image
+docker build -t resume-analyzer-ai .
+
+# Run the container
+docker run -p 8501:8501 resume-analyzer-ai
+```
+
+Then open your browser and go to:
+```
+http://localhost:8501
+```
+
+---
+
+## Installation (Manual Setup)
 
 ```bash
 # Clone the repo
@@ -34,7 +57,6 @@ python -m spacy download en_core_web_sm
 ```
 
 ## Usage
-
 ```bash
 streamlit run app.py
 ```
@@ -46,11 +68,11 @@ Then:
 4. Explore the ranked leaderboard and download reports
 
 ## Project Structure
-
 ```
 resume-analyzer-ai/
 ├── app.py                    # Streamlit UI
 ├── requirements.txt          # Dependencies
+├── Dockerfile                # Docker configuration
 ├── src/
 │   ├── pdf_parser.py         # PDF text extraction
 │   ├── skill_extractor.py    # spaCy skill extraction
@@ -62,16 +84,14 @@ resume-analyzer-ai/
 ```
 
 ## Tech Stack
-
 - **NLP**: spaCy, scikit-learn, sentence-transformers
 - **PDF**: pdfplumber
 - **Reports**: fpdf2, pandas
 - **UI**: Streamlit, matplotlib
+- **Deployment**: Docker
 
 ## Author
-
 **Ankit Kumar Singh** — AI Engineer
-
 - GitHub: [httpsankuu](https://github.com/httpsankuu)
 - LinkedIn: [Ankit Kumar Singh](https://www.linkedin.com/in/ankit-kumar-singh-24681b36b/)
 - Email: ankitkumar143563@gmail.com
