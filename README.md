@@ -1,6 +1,8 @@
 # Resume Analyzer AI
 An intelligent resume screening tool that parses PDFs, extracts key skills and experience using NLP, and ranks candidates against job descriptions with a composite match score.
 
+### 🚀 [Try the Live App Here](https://ai-resume-anku.streamlit.app/)
+
 ## Features
 - **PDF Parsing** — Extracts text from multi-page resume PDFs using `pdfplumber`
 - **Skill Extraction** — 200+ skill taxonomy with `spaCy` PhraseMatcher for fast, accurate skill detection
