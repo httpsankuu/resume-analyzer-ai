@@ -23,24 +23,24 @@ st.markdown("""
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
   html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-  .stApp { background: linear-gradient(180deg, #fafafa 0%, #fff7ed 100%); }
+  .stApp { background: transparent; }
   .main-header { font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0; }
   .main-header span { color: #ea580c; }
-  .sub-header { color: #737373; font-size: 1rem; margin-bottom: 1.5rem; }
+  .sub-header { color: var(--text-color); opacity: 0.7; font-size: 1rem; margin-bottom: 1.5rem; }
   .metric-card {
-    background: white; border-radius: 12px; padding: 20px 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.06); border: 1px solid #f0f0f0;
+    background: var(--secondary-background-color); border-radius: 12px; padding: 20px 24px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06); border: 1px solid var(--border-color);
     text-align: center;
   }
   .metric-value { font-size: 2rem; font-weight: 800; color: #ea580c; }
-  .metric-label { font-size: .75rem; color: #a3a3a3; text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
+  .metric-label { font-size: .75rem; color: var(--text-color); opacity: 0.6; text-transform: uppercase; letter-spacing: .08em; margin-top: 4px; }
   .candidate-row {
-    background: white; border-radius: 10px; padding: 16px 20px; margin-bottom: 10px;
-    border: 1px solid #f0f0f0; display: flex; align-items: center;
+    background: var(--secondary-background-color); border-radius: 10px; padding: 16px 20px; margin-bottom: 10px;
+    border: 1px solid var(--border-color); display: flex; align-items: center;
     justify-content: space-between; transition: box-shadow .2s;
   }
   .candidate-row:hover { box-shadow: 0 4px 12px rgba(0,0,0,.08); }
-  div[data-testid="stExpander"] { background: white; border-radius: 12px !important; border: 1px solid #f0f0f0 !important; }
+  div[data-testid="stExpander"] { background: var(--secondary-background-color) !important; border-radius: 12px !important; border: 1px solid var(--border-color) !important; }
   .skill-tag {
     display: inline-block; padding: 4px 10px; border-radius: 100px;
     font-size: .75rem; font-weight: 600; margin: 2px;
@@ -344,13 +344,15 @@ if st.session_state.results:
 else:
     st.divider()
     st.markdown("""
-    <div style="text-align:center; padding: 60px 20px; color: #a3a3a3;">
+    <div style="text-align:center; padding: 60px 20px; color: var(--text-color); opacity: 0.5;">
       <div style="font-size: 3rem; margin-bottom: 12px;">📄</div>
-      <h3 style="color: #737373; margin-bottom: 8px;">Ready to analyze resumes</h3>
+      <h3 style="color: var(--text-color); opacity: 0.8; margin-bottom: 8px;">Ready to analyze resumes</h3>
       <p>Enter a job description, upload resume PDFs, and click <strong>Analyze Resumes</strong> to get started.</p>
     </div>
     """, unsafe_allow_html=True)
 
 # ── Footer ──
+st.divider()
+st.caption("Built with ❤️ by Ankit Kumar Singh | © 2026 | Resume Analyzer AI")��
 st.divider()
 st.caption("Built with ❤️ by Ankit Kumar Singh | © 2026 | Resume Analyzer AI")
