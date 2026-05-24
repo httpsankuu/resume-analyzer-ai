@@ -28,18 +28,18 @@ class ReportGenerator:
         pdf.cell(0, 8, f"Generated: {datetime.now().strftime('%B %d, %Y at %H:%M')}", align="C", new_x="LMARGIN", new_y="NEXT")
         pdf.ln(12)
 
-        # ── Candidate & Score ──
-        pdf.set_text_color(30, 30, 30)
+                # ── Candidate & Score ──
+        pdf.set_text_color(20, 20, 20)
         pdf.set_font("Helvetica", "B", 16)
         pdf.cell(0, 10, f"Candidate: {candidate_name}", new_x="LMARGIN", new_y="NEXT")
         pdf.set_font("Helvetica", "", 10)
-        pdf.set_text_color(100, 100, 100)
+        pdf.set_text_color(80, 80, 80)
         pdf.cell(0, 8, f"Job Description: {jd_title}", new_x="LMARGIN", new_y="NEXT")
         pdf.ln(6)
 
         # Big score box
         overall = score.get("overall_match", 0)
-        pdf.set_fill_color(245, 245, 245)
+        pdf.set_fill_color(248, 249, 250)
         pdf.set_draw_color(234, 88, 12)
         pdf.rect(15, pdf.get_y(), 180, 32, "DF")
         pdf.set_xy(15, pdf.get_y() + 4)
@@ -47,16 +47,16 @@ class ReportGenerator:
         pdf.set_font("Helvetica", "B", 28)
         pdf.cell(180, 12, f"{overall}%", align="C", new_x="LMARGIN", new_y="NEXT")
         pdf.set_xy(15, pdf.get_y() + 1)
-        pdf.set_text_color(80, 80, 80)
+        pdf.set_text_color(60, 60, 60)
         pdf.set_font("Helvetica", "B", 11)
         pdf.cell(180, 8, score.get("label", ""), align="C", new_x="LMARGIN", new_y="NEXT")
         pdf.set_y(pdf.get_y() + 10)
 
         # ── Score Breakdown ──
-        pdf.set_text_color(30, 30, 30)
+        pdf.set_text_color(20, 20, 20)
         pdf.set_font("Helvetica", "B", 13)
         pdf.cell(0, 10, "Score Breakdown", new_x="LMARGIN", new_y="NEXT")
-        pdf.set_draw_color(220, 220, 220)
+        pdf.set_draw_color(230, 230, 230)
         pdf.line(15, pdf.get_y(), 195, pdf.get_y())
         pdf.ln(6)
 
@@ -67,10 +67,10 @@ class ReportGenerator:
         ]
         for label, val in breakdowns:
             pdf.set_font("Helvetica", "", 10)
-            pdf.set_text_color(60, 60, 60)
+            pdf.set_text_color(50, 50, 50)
             pdf.cell(80, 8, label)
             pdf.set_font("Helvetica", "B", 10)
-            pdf.set_text_color(30, 30, 30)
+            pdf.set_text_color(20, 20, 20)
             pdf.cell(30, 8, f"{val}%", align="R")
             # Progress bar
             bar_x = 130
