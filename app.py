@@ -353,6 +353,4 @@ else:
 
 # ── Footer ──
 st.divider()
-st.caption("Built with ❤️ by Ankit Kumar Singh | © 2026 | Resume Analyzer AI")��
-st.divider()
 st.caption("Built with ❤️ by Ankit Kumar Singh | © 2026 | Resume Analyzer AI")
