@@ -1,4 +1,5 @@
 import json
+import logging
 import re
 from pathlib import Path
 from typing import Optional
@@ -9,11 +10,14 @@ from spacy.matcher import PhraseMatcher
 
 SKILLS_DB_PATH = Path(__file__).resolve().parent.parent / "data" / "skills_db.json"
 
+logger = logging.getLogger(__name__)
+
 
 class SkillExtractor:
     """Extract skills, education, and experience from resume text using spaCy."""
 
     def __init__(self):
+        logger.info("Loading spaCy model...")
         self.nlp = spacy.load("en_core_web_sm")
         with open(SKILLS_DB_PATH) as f:
             self.skills_db: dict[str, list[str]] = json.load(f)
@@ -33,6 +37,8 @@ class SkillExtractor:
                 patterns = [self.nlp.make_doc(skill)]
                 self.matcher.add(skill, patterns)
 
+        logger.info("SkillExtractor ready. %d categories loaded.", len(self.skills_db))
+
     def extract(self, text: str) -> dict:
         """Run full extraction pipeline and return structured results."""
         doc = self.nlp(text[:100000])  # cap for performance
@@ -40,37 +46,44 @@ class SkillExtractor:
         # 1. Match skills from the database
         found_skills: dict[str, set[str]] = {}  # category -> skills
         matches = self.matcher(doc)
-        seen = set()
+
+        # Track both lowercase key (dedup) and original display case
+        seen_lower: set[str] = set()
+        seen_display: dict[str, str] = {}  # lower -> display-case
+
         for match_id, start, end in matches:
             span_text = doc[start:end].text.strip()
             key = span_text.lower()
-            if key in seen:
+            if key in seen_lower:
                 continue
-            seen.add(key)
+            seen_lower.add(key)
+            seen_display[key] = span_text
             category = self.skill_to_category.get(key, "Other")
             found_skills.setdefault(category, set()).add(span_text)
 
-        # 2. Detect soft skills via loose keyword scanning
+        # 2. Detect soft skills via word-boundary regex (avoids "go" matching "good")
         text_lower = text.lower()
-        found_soft = {s.title() for s in self._soft_skills_keywords if s in text_lower}
+        found_soft: set[str] = set()
+        for s in self._soft_skills_keywords:
+            if re.search(r"\b" + re.escape(s) + r"\b", text_lower):
+                found_soft.add(s.title())
         if found_soft:
             found_skills["Soft Skills"] = found_soft
 
         # 3. Detect certifications
-        # Check for specific certs and also generic patterns like "certified in X"
-        certs_found = set()
+        certs_found: set[str] = set()
         for cert in self._cert_keywords:
-            if cert in text_lower:
+            if re.search(r"\b" + re.escape(cert) + r"\b", text_lower):
                 certs_found.add(cert.title())
         # Regex: "Certified ...", "Certification in ..."
         cert_patterns = re.findall(
-            r"(?:Certified|Certification)\s+(?:in\s+)?([A-Za-z\s]+?)(?:,|\.|\n|$)",
+            r"(?:Certified|Certification)\s+(?:in\s+)?([A-Za-z\s]+?)(?:,|\.|\\n|$)",
             text, re.IGNORECASE
         )
         for c in cert_patterns:
             c = c.strip()
-            if len(c) > 3 and len(c) < 60:
-                certs_found.add(c.strip())
+            if 3 < len(c) < 60:
+                certs_found.add(c)
 
         # 4. Extract education entities via spaCy NER
         education = []
@@ -88,10 +101,13 @@ class SkillExtractor:
         email = self._extract_email(text)
         phone = self._extract_phone(text)
 
+        # Return all_skills in display-case, sorted case-insensitively
+        all_skills_display = sorted(seen_display.values(), key=str.lower)
+
         return {
             "skills": {cat: sorted(list(s)) for cat, s in found_skills.items()},
-            "all_skills": sorted(seen),
-            "total_skills_found": len(seen),
+            "all_skills": all_skills_display,
+            "total_skills_found": len(all_skills_display),
             "education": list(set(education)),
             "experience_years": experience_years,
             "email": email,
@@ -126,5 +142,6 @@ class SkillExtractor:
 
     @staticmethod
     def _extract_phone(text: str) -> Optional[str]:
-        m = re.search(r"\+?\d[\d\s\-()]{8,16}\d", text)
+        # Require at least 7 digits to avoid matching plain numbers
+        m = re.search(r"\+?\d[\d\s\-()]{7,14}\d", text)
         return m.group(0).strip() if m else None

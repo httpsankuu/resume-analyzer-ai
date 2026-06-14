@@ -1,10 +1,13 @@
 import io
-import tempfile
+import logging
 from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
 from fpdf import FPDF
+
+
+logger = logging.getLogger(__name__)
 
 
 class ReportGenerator:
@@ -28,7 +31,7 @@ class ReportGenerator:
         pdf.cell(0, 8, f"Generated: {datetime.now().strftime('%B %d, %Y at %H:%M')}", align="C", new_x="LMARGIN", new_y="NEXT")
         pdf.ln(12)
 
-                # ── Candidate & Score ──
+        # ── Candidate & Score ──
         pdf.set_text_color(20, 20, 20)
         pdf.set_font("Helvetica", "B", 16)
         pdf.cell(0, 10, f"Candidate: {candidate_name}", new_x="LMARGIN", new_y="NEXT")

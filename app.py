@@ -1,4 +1,5 @@
 import io
+import logging
 from pathlib import Path
 
 import streamlit as st
@@ -9,6 +10,12 @@ from src.pdf_parser import extract_text_from_pdf, extract_name_from_text
 from src.skill_extractor import SkillExtractor
 from src.matcher import ResumeMatcher
 from src.report_generator import ReportGenerator
+
+# ── Logging ──
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
 
 # ── Page config ──
 st.set_page_config(
@@ -49,6 +56,18 @@ st.markdown("""
   .skill-missing { background: #fef2f2; color: #991b1b; }
 </style>
 """, unsafe_allow_html=True)
+
+# ── Model caching — loaded once, reused across all reruns ──
+@st.cache_resource(show_spinner="Loading NLP models (first run only)...")
+def load_models():
+    """Load and cache SkillExtractor and ResumeMatcher.
+
+    Decorated with @st.cache_resource so these heavy models are initialised
+    exactly once per app lifecycle, not on every button click.
+    """
+    extractor = SkillExtractor()
+    matcher = ResumeMatcher(extractor)
+    return extractor, matcher
 
 # ── Session state init ──
 if "results" not in st.session_state:
@@ -135,8 +154,8 @@ if analyze_btn and jd_text.strip() and resume_files:
     st.session_state.jd_text = jd_text.strip()
     with st.status("Analyzing resumes...", expanded=True) as status:
         st.write("Loading NLP models...")
-        extractor = SkillExtractor()
-        matcher = ResumeMatcher(extractor)
+        # Retrieve cached models — no re-loading cost on subsequent runs
+        extractor, matcher = load_models()
 
         st.write(f"Processing {len(resume_files)} resume(s)...")
         candidates = []
@@ -166,7 +185,15 @@ if analyze_btn and jd_text.strip() and resume_files:
 
         st.write("Extracting required skills from job description...")
         jd_skills = matcher.extract_jd_skills(jd_text)
-        st.write(f"Found {len(jd_skills)} skills in JD: {', '.join(jd_skills[:15])}{'...' if len(jd_skills) > 15 else ''}")
+
+        if not jd_skills:
+            st.warning(
+                "⚠️ No recognised skills were found in the job description. "
+                "Skill Overlap score will be 0 for all candidates. "
+                "Try including more explicit skill names (e.g. Python, SQL, React)."
+            )
+        else:
+            st.write(f"Found {len(jd_skills)} skills in JD: {', '.join(jd_skills[:15])}{'...' if len(jd_skills) > 15 else ''}")
 
         st.write("Computing match scores...")
         ranked = matcher.rank_all(candidates, jd_text, jd_skills)
@@ -181,7 +208,6 @@ if analyze_btn and jd_text.strip() and resume_files:
             "jd_skills": jd_skills,
             "total_candidates": len(ranked),
         }
-        st.session_state.extractor = extractor
 
         status.update(label=f"Analysis complete! {len(ranked)} resumes scored.", state="complete")
 
@@ -261,6 +287,8 @@ if st.session_state.results:
     # ── Candidate details ──
     st.markdown("")
     st.markdown("#### Candidate Details")
+
+    # ReportGenerator is stateless — instantiate once outside the loop
     gen = ReportGenerator()
 
     for r in ranked:
