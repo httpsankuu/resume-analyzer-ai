@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd backend && pip install -r requirements.txt && python -m spacy download en_core_web_sm",
+  "functions": {
+    "api/index.py": {
+      "memory": 1024,
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/index.py" }
+  ]
+}
