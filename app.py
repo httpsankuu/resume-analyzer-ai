@@ -78,6 +78,26 @@ if "jd_text" not in st.session_state:
 # ── Header ──
 st.markdown('<p class="main-header">Resume <span>Analyzer</span> AI</p>', unsafe_allow_html=True)
 st.markdown('<p class="sub-header">Upload resumes, paste a job description, and get AI-powered match scores in seconds.</p>', unsafe_allow_html=True)
+st.markdown("""
+<a href="https://github.com/httpsankuu" target="_blank" style="
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #1a1a2e; color: #fff; text-decoration: none;
+    padding: 6px 14px; border-radius: 100px; font-size: 0.8rem;
+    font-weight: 600; border: 1px solid #333; margin-bottom: 8px;
+    transition: background 0.2s;">
+    <svg height="16" width="16" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+      0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+      -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+      .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+      -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0
+      1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82
+      1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01
+      1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+    </svg>
+    @httpsankuu
+</a>
+""", unsafe_allow_html=True)
 
 # ── Sidebar ──
 with st.sidebar:
@@ -92,6 +112,7 @@ with st.sidebar:
     st.divider()
     st.markdown("#### About")
     st.markdown("Built with `spaCy`, `scikit-learn`, and `sentence-transformers`. Composite scoring across skill overlap, TF-IDF, and semantic similarity.")
+    st.markdown("**Author:** [Ankit Kumar Singh](https://github.com/httpsankuu) 🚀")
     st.caption("© 2026 Ankit Kumar Singh")
 
 # ── Layout: two columns for input ──
