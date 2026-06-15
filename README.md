@@ -1,5 +1,7 @@
 # Resume Analyzer AI
 
+**Live Demo:** [https://resumeanalyzer-10.vercel.app/](https://resumeanalyzer-10.vercel.app/)
+
 An intelligent, full-stack resume screening tool that parses PDFs, extracts skills and experience using NLP, and ranks candidates against job descriptions with a composite match score.
 
 ## Architecture
