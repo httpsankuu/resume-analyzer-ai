@@ -19,13 +19,14 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="Resume Analyzer AI", version="2.0.0")
 
 # ── CORS — allow local Next.js dev + Vercel deploys ──
+# Note: allow_origin_regex uses regex patterns — no need to list every Vercel URL
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
         "http://localhost:3001",
-        "https://*.vercel.app",
     ],
+    allow_origin_regex=r"https://.*\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
